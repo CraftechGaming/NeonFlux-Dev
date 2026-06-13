@@ -1,6 +1,13 @@
 // Destructure React hooks from the global scope (CDN-imported React)
 const { useState, useEffect } = React;
 
+console.log(
+  "%c⚡ NEONFLUX CINEMA %cCompiled Successfully!",
+  "color: #00d2ff; font-weight: bold; font-size: 14px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);",
+  "color: #00ff66; font-weight: bold; font-size: 14px;"
+);
+
+
 // Isolated Production Catalog Data - Featuring your specific full movie link entry
 const premiumCatalog = [
   {
