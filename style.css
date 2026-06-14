@@ -832,3 +832,35 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
 }
+
+/* --- FOOTER STYLES --- */
+.app-footer {
+  margin-top: 60px;
+  padding: 40px 20px 20px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.app-footer .highlight-name, .profile-footer .highlight-name {
+  color: var(--primary-neon);
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--primary-glow);
+  transition: var(--transition-smooth);
+}
+
+.app-footer .highlight-name:hover {
+  color: #fff;
+  text-shadow: 0 0 15px var(--primary-neon);
+}
+
+.profile-footer {
+  position: absolute;
+  bottom: 30px;
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-align: center;
+}

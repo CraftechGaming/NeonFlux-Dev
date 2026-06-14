@@ -496,6 +496,10 @@ function App() {
             </div>
           ))}
         </div>
+        
+        <div className="profile-footer">
+          NEONFLUX developed by <span className="highlight-name">Hridhan</span>
+        </div>
       </div>
     );
   }
@@ -1279,6 +1283,10 @@ function App() {
           </div>
         </div>
       )}
+
+      <footer className="app-footer">
+        NEONFLUX developed by <span className="highlight-name">Hridhan</span>
+      </footer>
 
     </div>
   );
