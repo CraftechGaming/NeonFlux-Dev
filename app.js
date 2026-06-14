@@ -194,7 +194,7 @@ const Icons = {
   )
 };
 
-export default function App() {
+function App() {
   const [activeProfile, setActiveProfile] = useState(null);
   const [introActive, setIntroActive] = useState(false);
   const [mediaList, setMediaList] = useState(() => {
