@@ -105,6 +105,60 @@ const premiumCatalog = [
     category: "Spiritual / Drama", rating: "9.4", duration: "Ep 25m", quality: "720p",
     streamUrl: "https://www.youtube.com/embed/8v_n9Zof_Yg",
     image: "https://images.unsplash.com/photo-1609137144813-7d72111b0e95?q=80&w=500"
+  },
+  {
+    id: 17, title: "Airlift", type: "Movie", languages: ["Hindi"],
+    category: "Drama / History / Thriller", rating: "8.7", duration: "2h 10m", quality: "Ultra HD",
+    streamUrl: "https://www.youtube.com/embed/EP34Y9l2YxY",
+    image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=500"
+  },
+  {
+    id: 18, title: "Sanam Re", type: "Movie", languages: ["Hindi"],
+    category: "Romance / Drama / Musical", rating: "8.1", duration: "2h 00m", quality: "Ultra HD",
+    streamUrl: "https://www.youtube.com/embed/2N_I3R9D8yE",
+    image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500"
+  },
+  {
+    id: 19, title: "Tum Bin 2", type: "Movie", languages: ["Hindi"],
+    category: "Drama / Romance", rating: "8.0", duration: "2h 27m", quality: "720p",
+    streamUrl: "https://www.youtube.com/embed/M8r_X9A21p8",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=500"
+  },
+  {
+    id: 20, title: "Romeo S3", type: "Movie", languages: ["Hindi"],
+    category: "Action / Thriller", rating: "8.3", duration: "2h 15m", quality: "1080p",
+    streamUrl: "https://www.youtube.com/embed/F0pDk48c96s",
+    image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=500"
+  },
+  {
+    id: 21, title: "Ranangan", type: "Movie", languages: ["Marathi"],
+    category: "Drama / Family / Political", rating: "8.6", duration: "2h 18m", quality: "Ultra HD",
+    streamUrl: "https://www.youtube.com/embed/6nHBfZtb3jA",
+    image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=500"
+  },
+  {
+    id: 22, title: "Yuntum", type: "Movie", languages: ["Marathi"],
+    category: "Romance / Drama / Musical", rating: "8.5", duration: "2h 02m", quality: "720p",
+    streamUrl: "https://www.youtube.com/embed/gS-H7nQ2yO8",
+    image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=500"
+  },
+  {
+    id: 23, title: "Vitti Dandu", type: "Movie", languages: ["Marathi"],
+    category: "Drama / Historical / Family", rating: "8.9", duration: "2h 08m", quality: "1080p",
+    streamUrl: "https://www.youtube.com/embed/kYJq_q3fV5E",
+    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=500"
+  },
+  {
+    id: 24, title: "Hera Pheri", type: "Movie", languages: ["Hindi"],
+    category: "Comedy / Drama", rating: "9.7", duration: "2h 36m", quality: "1080p",
+    streamUrl: "https://www.youtube.com/embed/R9j666U-nAY",
+    image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=500"
+  },
+  {
+    id: 25, title: "Phir Hera Pheri", type: "Movie", languages: ["Hindi"],
+    category: "Comedy / Heist / Drama", rating: "9.6", duration: "2h 33m", quality: "Ultra HD",
+    streamUrl: "https://www.youtube.com/embed/kYJj8w7-40E",
+    image: "https://images.unsplash.com/photo-1585647347483-22b66260dfff?q=80&w=500"
   }
 ];
 
@@ -198,8 +252,26 @@ function App() {
   const [activeProfile, setActiveProfile] = useState(null);
   const [introActive, setIntroActive] = useState(false);
   const [mediaList, setMediaList] = useState(() => {
-    const saved = localStorage.getItem('neonflux_v7_data');
-    return saved ? JSON.parse(saved) : premiumCatalog;
+    try {
+      const saved = localStorage.getItem('neonflux_v7_data');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Find default items that are not in the parsed list
+        const missingItems = premiumCatalog.filter(
+          defItem => !parsed.some(savedItem => savedItem.title.toLowerCase() === defItem.title.toLowerCase())
+        );
+        if (missingItems.length > 0) {
+          // Merge missing items
+          const merged = [...parsed, ...missingItems];
+          localStorage.setItem('neonflux_v7_data', JSON.stringify(merged));
+          return merged;
+        }
+        return parsed;
+      }
+    } catch (e) {
+      console.error("Error loading cached mediaList:", e);
+    }
+    return premiumCatalog;
   });
 
   // Filters, Search, and Sort
@@ -217,18 +289,33 @@ function App() {
 
   // Lists & Watch history
   const [watchlists, setWatchlists] = useState(() => {
-    const saved = localStorage.getItem('neonflux_v7_watchlists');
-    return saved ? JSON.parse(saved) : {};
+    try {
+      const saved = localStorage.getItem('neonflux_v7_watchlists');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Error loading watchlists:", e);
+      return {};
+    }
   });
   const [watchHistory, setWatchHistory] = useState(() => {
-    const saved = localStorage.getItem('neonflux_v7_history');
-    return saved ? JSON.parse(saved) : {};
+    try {
+      const saved = localStorage.getItem('neonflux_v7_history');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Error loading watchHistory:", e);
+      return {};
+    }
   });
 
   // Reviews & Comments State
   const [reviews, setReviews] = useState(() => {
-    const saved = localStorage.getItem('neonflux_v7_reviews');
-    return saved ? JSON.parse(saved) : {};
+    try {
+      const saved = localStorage.getItem('neonflux_v7_reviews');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Error loading reviews:", e);
+      return {};
+    }
   });
   const [newReviewText, setNewReviewText] = useState('');
   const [newReviewRating, setNewReviewRating] = useState('10');
