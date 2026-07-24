@@ -1,0 +1,38 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0014"/>
+      <stop offset="100%" stop-color="#1a0033"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ff3d81"/>
+      <stop offset="45%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="600" height="600" fill="url(#bg)"/>
+
+  <!-- Outer ring, cinematic aperture feel -->
+  <circle cx="300" cy="300" r="230" fill="none" stroke="#a855f7" stroke-opacity="0.25" stroke-width="2"/>
+
+  <!-- Central play/flux mark: stylized "N" fused with a play triangle -->
+  <g filter="url(#glow)">
+    <path d="M215 190 L215 410 L260 410 L260 265 L370 410 L415 410 L415 190 L370 190 L370 335 L260 190 Z"
+          fill="url(#flame)"/>
+    <path d="M395 260 L480 300 L395 340 Z" fill="#ffffff" opacity="0.9"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="300" y="500" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif"
+        font-size="54" font-weight="900" letter-spacing="6" fill="#ffffff">NEONFLUX</text>
+  <text x="300" y="530" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+        font-size="16" letter-spacing="8" fill="#a855f7">STREAM  BEYOND</text>
+</svg>
